@@ -14,6 +14,11 @@
     <% else %>
       <%= render partial: "shared/guest_nav" %>
     <% end %>
-    <%= yield %>
+    <div class="container">
+      <% flash.each do |type, message| %>
+        <%= content_tag :div, sanitize(message), class:"alert-#{type}" %>
+      <% end %>
+      <%= yield %>
+    </div>
   </body>
 </html>

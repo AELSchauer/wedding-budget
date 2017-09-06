@@ -15,7 +15,7 @@ feature "Guest" do
     expect(current_path).to eq(dashboard_path)
     expect(page).to have_content("Charlie's Dashboard")
     expect(page).to have_link("Logout")
-    expect(page).to_not have_link("Signup")
+    expect(page).to_not have_link("Sign Up")
   end
 
   it "can't create an account without all user information or duplicate information" do
@@ -37,7 +37,7 @@ feature "Guest" do
 
     expect(page).to have_content("Email has already been taken")
     expect(page).to have_content("Password can't be blank")
-    expect(page).to have_link("Signup")
+    expect(page).to have_link("Sign Up")
 
     expect(page).to_not have_content("Darcy's Dashboard")
     expect(page).to_not have_link("Logout")

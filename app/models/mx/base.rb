@@ -4,16 +4,19 @@ class Mx::Base
   def credentials
     {
       :"MX-API-Key" => Mx::Config.mx_api_key,
-      :"MX-Client-ID" => Mx::Config.mx_client_id,
+      :"MX-Client-ID" => Mx::Config.mx_client_id
     }
   end
 
   def query(opts)
     method   = opts[:method].to_s.downcase
-    response = self.class.send(method, opts[:endpoint], headers: credentials, query: opts[:params])
+    response = self.class.send(
+      method, opts[:endpoint],
+      headers: credentials, query: opts[:params]
+    )
     data = JSON.parse(response)
 
-    log_query(opts.merge({response: data, code: response.code}))
+    log_query(opts.merge(response: data, code: response.code))
 
     Hashie::Mash.new(data)
   end

@@ -1,9 +1,9 @@
 FactoryGirl.define do
   factory :user do
-    first_name "MyString"
-    last_name "MyString"
-    email "MyString"
-    password_digest "MyString"
-    mx_guid "MyString"
+    first_name "Terry"
+    last_name "Turtle"
+    sequence :email { |n| "Terry.Turtle#{n}@email.com" }
+    password "password"
+    password_confirmation "password"
   end
 end
