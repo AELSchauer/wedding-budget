@@ -5,7 +5,6 @@ class Mx::Base
     {
       :"MX-API-Key" => Mx::Config.mx_api_key,
       :"MX-Client-ID" => Mx::Config.mx_client_id,
-      :"Accept" => "application/vnd.mx.atrium.v1+json"
     }
   end
 
@@ -14,6 +13,18 @@ class Mx::Base
     response = self.class.send(method, opts[:endpoint], headers: credentials, query: opts[:params])
     data = JSON.parse(response)
 
+    log_query(opts.merge({response: data, code: response.code}))
+
     Hashie::Mash.new(data)
+  end
+
+  def log_query(opts)
+    Log.create!(
+      :method        => opts[:method],
+      :endpoint      => opts[:endpoint],
+      :params        => opts[:params].to_json,
+      :response      => opts[:response].to_json,
+      :response_code => opts[:code]
+    )
   end
 end

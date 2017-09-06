@@ -19,6 +19,7 @@ gem 'rails', '~> 5.0.2'
 gem 'rails_12factor', group: :production
 gem 'sass-rails', '>= 3.2'
 gem 'uglifier', '>= 1.3.0'
+gem 'will_paginate', '~> 3.1.0'
 
 group :test do
   gem 'database_cleaner'

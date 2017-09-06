@@ -1,0 +1,24 @@
+<h1>MX API Log -- Detailed</h1>
+
+<table>
+  <tr>
+    <th>Endpoint</th>
+    <td><%= @log.endpoint %></td>
+  </tr>
+  <tr>
+    <th>Response Code</th>
+    <td><%= @log.response_code %></td>
+  </tr>
+  <tr>
+    <th>Method</th>
+    <td><%= @log.rest_method %></td>
+  </tr>
+  <tr>
+    <th>Parameters</th>
+    <td><pre><code><%= @log.formatted_params %></code></pre></td>
+  </tr>
+  <tr>
+    <th>Response JSON</th>
+    <td><pre><code><%= @log.formatted_response %></code></pre></td>
+  </tr>
+</table>

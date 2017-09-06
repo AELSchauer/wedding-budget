@@ -1,0 +1,24 @@
+<h1>MX API Logs</h1>
+
+<%= will_paginate @logs %>
+
+<table>
+  <thead>
+    <th>Date</th>
+    <th>Code</th>
+    <th>Method</th>
+    <th>Endpoint</th>
+    <th>Actions</th>
+  </thead>
+  <tbody>
+  <% @logs.each do |log| %>
+    <tr>
+      <td><%= log.date %></td>
+      <td><%= log.response_code %></td>
+      <td><%= log.rest_method %></td>
+      <td><%= log.endpoint %></td>
+      <td><%= link_to 'Details', log_path(log.id), class: "btn btn-info btn-sm" %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

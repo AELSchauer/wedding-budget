@@ -6,7 +6,7 @@ RSpec.describe Mx::Base, type: :model do
       mx = Mx::Base.new
       credentials = mx.credentials
 
-      expect(credentials.keys).to eq([:"MX-API-Key", :"MX-Client-ID", :"Accept"])
+      expect(credentials.keys).to eq([:"MX-API-Key", :"MX-Client-ID"])
       expect(credentials[:"MX-API-Key"]).not_to be_nil
       expect(credentials[:"MX-Client-ID"]).not_to be_nil
     end
@@ -21,6 +21,7 @@ RSpec.describe Mx::Base, type: :model do
       })
 
       expect(response.institutions.count).to eq(16)
+      expect(Log.count).to eq(1)
     end
 
     it("returns the results of a failed request") do
