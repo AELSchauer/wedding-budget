@@ -1,0 +1,43 @@
+{
+  "RSpec": {
+    "coverage": {
+      "/Users/ashleyschauer/Documents/projects/wedding-budget-mx/app/helpers/application_helper.rb": [
+        1,
+        null
+      ],
+      "/Users/ashleyschauer/Documents/projects/wedding-budget-mx/app/models/mx/base.rb": [
+        1,
+        1,
+        null,
+        1,
+        null,
+        null,
+        null,
+        null,
+        3,
+        null,
+        null,
+        1,
+        2,
+        2,
+        2,
+        null,
+        2,
+        null,
+        null
+      ],
+      "/Users/ashleyschauer/Documents/projects/wedding-budget-mx/app/models/mx/config.rb": [
+        1,
+        1,
+        null,
+        1,
+        3,
+        null,
+        null,
+        1,
+        null
+      ]
+    },
+    "timestamp": 1504731530
+  }
+}
