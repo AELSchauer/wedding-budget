@@ -6,15 +6,15 @@ class Mx::User < Mx::Base
   end
 
   def register
-    response = query({
+    response = query(
       :endpoint => "/users",
       :method   => :POST,
       :params   => {
-        "user": {
-          "is_disabled": true
+        user: {
+          is_disabled: true
         }
       }
-    })
+    )
 
     if response.error.nil?
       user.mx_guid = response.user.guid

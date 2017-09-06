@@ -1,0 +1,54 @@
+AllCops:
+  Exclude:
+    - 'app/channels/application_cable/*'
+    - 'bin/*'
+    - 'config/*'
+    - 'config/environments/*'
+    - 'config/initializers/*'
+    - 'db/schema.rb'
+    - 'Gemfile'
+    - 'Rakefile'
+    - 'spec/*_helper.rb'
+    - 'spec/factories/*'
+    - 'spec/features/*/*'
+    - 'spec/models/*/*'
+    - 'spec/support/*'
+
+
+Metrics/MethodLength:
+  CountComments: false
+  Max: 15
+
+Style/EmptyMethod:
+  EnforcedStyle: expanded
+
+Style/HashSyntax:
+  Enabled: false
+
+Style/SymbolArray:
+  EnforcedStyle: brackets
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Metrics/LineLength:
+  Max: 85
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+  ConsistentQuotesInMultiline: true
+
+Style/StringLiteralsInInterpolation:
+  EnforcedStyle: double_quotes
+
+Style/Documentation:
+  Enabled: false
+
+Style/NumericLiterals:
+  Enabled: true
+
+Style/ExtraSpacing:
+  Enabled: true
+
+Style/ClassAndModuleChildren:
+  EnforcedStyle: compact

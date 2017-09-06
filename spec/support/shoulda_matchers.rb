@@ -1,4 +1,4 @@
-RSpec.configure do |config|
+RSpec.configure do
   Shoulda::Matchers.configure do |sconfig|
     sconfig.integrate do |with|
       with.test_framework :rspec

@@ -3,7 +3,7 @@ User.create(
   last_name: "Ant",
   email: "alex.ant@email.com",
   password: "password",
-  password_confirmation: "password",
+  password_confirmation: "password"
 )
 
 User.create(
@@ -11,5 +11,5 @@ User.create(
   last_name: "Buffalo",
   email: "barry.buffalo@email.com",
   password: "password",
-  password_confirmation: "password",
+  password_confirmation: "password"
 )
