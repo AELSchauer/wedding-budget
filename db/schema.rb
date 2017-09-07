@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170907162502) do
+ActiveRecord::Schema.define(version: 20170907183016) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,17 @@ ActiveRecord::Schema.define(version: 20170907162502) do
     t.string   "url"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+  end
+
+  create_table "credentials", force: :cascade do |t|
+    t.string   "field_name"
+    t.string   "mx_id"
+    t.string   "field_label"
+    t.string   "field_type"
+    t.integer  "bank_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["bank_id"], name: "index_credentials_on_bank_id", using: :btree
   end
 
   create_table "logs", force: :cascade do |t|
@@ -45,4 +56,5 @@ ActiveRecord::Schema.define(version: 20170907162502) do
     t.datetime "updated_at",      null: false
   end
 
+  add_foreign_key "credentials", "banks"
 end

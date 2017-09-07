@@ -7,7 +7,7 @@ class CreateBanks < ActiveRecord::Migration[5.0]
       t.string :name
       t.string :url
 
-      t.timestamps
+      t.timestamps null: false
     end
   end
 end
