@@ -1,0 +1,2 @@
+module Banks::LoginHelper
+end

@@ -13,3 +13,5 @@ User.create(
   password: "password",
   password_confirmation: "password"
 )
+
+Mx::Utilities.import_banks

@@ -1,6 +1,6 @@
 class LogsController < ApplicationController
   def index
-    @logs = Log.paginate(:page => params[:page])
+    @logs = Log.order(created_at: :desc).paginate(:page => params[:page])
   end
 
   def show

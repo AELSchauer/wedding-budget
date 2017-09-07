@@ -18,4 +18,9 @@ class User < ApplicationRecord
   def add_to_mx
     mx.register
   end
+
+  def member_connect(credentials)
+    status = mx.login_to_bank(credentials)
+    binding.pry
+  end
 end
