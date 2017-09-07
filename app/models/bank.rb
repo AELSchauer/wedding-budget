@@ -17,4 +17,8 @@ class Bank < ApplicationRecord
       )
     end
   end
+
+  def self.fuzzy_search_by_name(search_name)
+    where("lower(name) like ?", "%#{search_name.downcase}%").order(:name)
+  end
 end

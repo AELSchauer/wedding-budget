@@ -1,0 +1,22 @@
+<h1>Banks#index</h1>
+<p>Find me in app/views/banks/index.html.erb</p>
+
+<br>
+
+<%= form_for :bank_search, url: banks_path, method: :get do |f| %>
+  <%= f.label "Find Your Bank" %>
+  <%= f.text_field :name %>
+  <%= f.submit "Search" %>
+<% end %>
+
+<br>
+
+<table>
+  <% @banks.each do |bank| %>
+    <tr>
+      <td><img src=<%= bank.small_logo_url %>></td>
+      <td><%= link_to bank.name, bank.url %></td>
+      <td><%= link_to "Connect", "#", class: "btn btn-success btn-sm" %></td>
+    </tr>
+  <% end %>
+</table>

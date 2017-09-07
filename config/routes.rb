@@ -9,5 +9,7 @@ Rails.application.routes.draw do
   post 'signup', to: 'users#create'
   get 'dashboard', to: 'users#show'
 
+  resources :banks, only: [:index]
+
   resources :logs, only: [:index, :show]
 end
