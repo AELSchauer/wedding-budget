@@ -9,7 +9,12 @@ Rails.application.routes.draw do
   post 'signup', to: 'users#create'
   get 'dashboard', to: 'users#show'
 
-  resources :banks, only: [:index]
+  resources :banks, only: [:index, :show], param: :mx_id do
+    scope module: :banks do
+      resources :login, only: [:index, :create]
+      resources :authenticate, only: [:index, :create]
+    end
+  end
 
   resources :logs, only: [:index, :show]
 end

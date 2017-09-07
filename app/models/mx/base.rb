@@ -17,8 +17,10 @@ class Mx::Base
 
     if response.nil?
       data = {status: response.code, success: response.success?}
-    else
+    elsif response["error"].nil?
       data = JSON.parse(response)
+    else
+      data = response
     end
 
     log_query(opts.merge(response: data, code: response.code))

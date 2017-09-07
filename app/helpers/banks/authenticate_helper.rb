@@ -1,0 +1,2 @@
+module Banks::AuthenticateHelper
+end

@@ -16,7 +16,7 @@
     <tr>
       <td><img src=<%= bank.small_logo_url %>></td>
       <td><%= link_to bank.name, bank.url %></td>
-      <td><%= link_to "Connect", "#", class: "btn btn-success btn-sm" %></td>
+      <td><%= link_to "Connect", bank_login_index_path(bank_mx_id: bank.mx_id), class: "btn btn-success btn-sm" %></td>
     </tr>
   <% end %>
 </table>

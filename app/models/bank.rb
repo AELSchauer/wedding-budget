@@ -12,7 +12,7 @@ class Bank < ApplicationRecord
       self.credentials.create(
         field_name: data.field_name,
         field_label: data.label,
-        field_type: data.type,
+        field_type: data.type.downcase,
         mx_id: data.guid
       )
     end

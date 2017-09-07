@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe BanksController, type: :controller do
+RSpec.describe BankController, type: :controller do
 
   describe "GET #index" do
     it "returns http success" do

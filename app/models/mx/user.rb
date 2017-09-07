@@ -12,7 +12,7 @@ class Mx::User < Mx::Base
       :method   => :POST,
       :params   => {
         :user   => {
-          is_disabled: true,
+          is_disabled: false,
           metadata: user_type
         }
       }
@@ -33,5 +33,27 @@ class Mx::User < Mx::Base
       end
 
     end
+  end
+
+  def login_to_bank(credentials)
+    response = query(
+      :endpoint => "/users/#{user.mx_guid}/members",
+      :method   => :POST,
+      :params   => {
+        :member => {
+          institution_code: credentials.bank_mx_id,
+          credentials: [
+            {
+              guid: credentials.username.guid,
+              value: credentials.username.value,
+            },
+            {
+              guid: credentials.password.guid,
+              value: credentials.password.value,
+            }
+          ]
+        }
+      }
+    )
   end
 end
