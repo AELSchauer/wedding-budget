@@ -19,8 +19,7 @@ class Mx::User < Mx::Base
     )
 
     if response.error.nil?
-      user.mx_guid = response.user.guid
-      user.save(:validate => false)
+      response
     else
       if response.error.message == "Cannot exceed user limit for client"
         puts "#{response.error.message}."
@@ -31,13 +30,12 @@ class Mx::User < Mx::Base
       else
         binding.pry
       end
-
     end
   end
 
   def login_to_bank(credentials)
     response = query(
-      :endpoint => "/users/#{user.mx_guid}/members",
+      :endpoint => "/users/#{user.mx_id}/members",
       :method   => :POST,
       :params   => {
         :member => {

@@ -4,7 +4,8 @@ class Banks::LoginController < ApplicationController
   end
 
   def create
-    current_user.member_connect(login_params)
+    member = current_user.member_connect(login_params)
+    member.complete?
   end
 
   private
