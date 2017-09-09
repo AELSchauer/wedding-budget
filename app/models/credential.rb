@@ -1,8 +1,6 @@
-class Credential < ApplicationRecord
-  belongs_to :bank
-
+class Credential < OpenStruct
   def html_field_type
-    if field_type == "login"
+    if ["login","text"].include?(field_type)
       "text"
     elsif field_type == "password"
       "password"

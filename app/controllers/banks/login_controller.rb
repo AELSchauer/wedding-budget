@@ -8,6 +8,7 @@ class Banks::LoginController < ApplicationController
       bank_mx_id: params[:bank_mx_id],
       credentials: login_params
     )
+    member.check_status
     if member.challenged?
       redirect_to bank_authenticate_index_path(bank_mx_id: params[:bank_mx_id])
     else
