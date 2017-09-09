@@ -18,18 +18,16 @@ class Mx::Utilities
   end
 
   def self.reset_users
-    response = self.user_list
+    response = user_list
     total_entries = response.pagination.total_entries
     while total_entries > 0
       response.users.each do |user|
-        self.delete_user(user.guid)
+        delete_user(user.guid)
       end
-    response = self.user_list
-    total_entries = response.pagination.total_entries
+      response = user_list
+      total_entries = response.pagination.total_entries
     end
   end
-
-  private
 
   def self.user_list
     mx = Mx::Base.new

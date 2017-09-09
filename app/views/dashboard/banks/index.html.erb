@@ -1,0 +1,18 @@
+<h1>Dashboard::Banks#index</h1>
+<p>Find me in app/views/dashboard/banks/index.html.erb</p>
+
+<table>
+  <% @members.each do |member| %>
+    <tr>
+      <td><%= link_to member.bank.name, member.bank.url %></td>
+      <td><%= member.status %></td>
+      <% if member.completed? %>
+        <td><%= link_to "Disconnect", dashboard_bank_path(member.id, user_action: :remove), class: "btn btn-danger btn-sm", method: :delete %></td>
+      <% elsif member.status_pending? %>
+        <td><%= link_to "Refresh Status", dashboard_bank_path(member), class: "btn btn-info btn-sm", method: :put %></td>
+      <% elsif member.status_failed? %>
+        <td><%= link_to "Retry", dashboard_bank_path(member, user_action: :retry), class: "btn btn-warning btn-sm", method: :delete %>   <%= link_to "Remove", dashboard_bank_path(member.id, user_action: :remove), class: "btn btn-danger btn-sm", method: :delete %></td>
+      <% end %>
+    </tr>
+  <% end %>
+</table>

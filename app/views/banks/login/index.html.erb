@@ -2,17 +2,20 @@
 <p>Find me in app/views/banks/login/index.html.erb</p>
 
 <%= form_for :login do |f| %>
-  <%= f.hidden_field :username_guid, value: @credentials.first.mx_id %>
-  <%= f.hidden_field :password_guid, value: @credentials.second.mx_id %>
   <table>
-      <tr>
-      <td><%= f.label @credentials.first.field_label %></td>
-      <td><%= f.text_field :username %></td>
-    </tr>
-    <tr>
-      <td><%= f.label @credentials.second.field_name %></td>
-      <td><%= f.password_field :password %></td>
-    </tr>
+    <% @credentials.each_with_index do |credential, i| %>
+      <%= f.fields_for "#{i}" do |credential_form| %>
+        <%= credential_form.hidden_field :guid, value: credential.mx_id %>
+        <tr>
+          <td><%= credential_form.label credential.field_label %></td>
+          <td><% if credential.html_field_type == "text" %>
+            <%= credential_form.text_field :value %>
+          <% elsif credential.html_field_type == "password" %>
+            <%= credential_form.password_field :value %>
+          <% end %></td>
+        </tr>
+      <% end %>
+    <% end %>
   </table>
   <%= f.submit "Submit" %>
 <% end %>

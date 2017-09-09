@@ -6,8 +6,8 @@ class Mx::User < Mx::Base
   end
 
   def register
-    user_type = {type: Rails.env}.to_s
-    response = query(
+    user_type = { type: Rails.env }.to_s
+    query(
       :endpoint => "/users",
       :method   => :POST,
       :params   => {
@@ -19,39 +19,26 @@ class Mx::User < Mx::Base
     )
 
     if response.error.nil?
-      user.mx_guid = response.user.guid
-      user.save(:validate => false)
+      response
+    elsif response.error.message == "Cannot exceed user limit for client"
+      puts "#{response.error.message}."
+      puts "Running user reset utility now...."
+      Mx::Utilities.reset_users
+      puts "User reset complete."
+      Kernel.abort
     else
-      if response.error.message == "Cannot exceed user limit for client"
-        puts "#{response.error.message}."
-        puts "Running user reset utility now...."
-        Mx::Utilities.reset_users
-        puts "User reset complete."
-        Kernel.abort
-      else
-        binding.pry
-      end
-
+      binding.pry
     end
   end
 
-  def login_to_bank(credentials)
-    response = query(
-      :endpoint => "/users/#{user.mx_guid}/members",
+  def login_to_bank(data)
+    query(
+      :endpoint => "/users/#{user.mx_id}/members",
       :method   => :POST,
       :params   => {
         :member => {
-          institution_code: credentials.bank_mx_id,
-          credentials: [
-            {
-              guid: credentials.username.guid,
-              value: credentials.username.value,
-            },
-            {
-              guid: credentials.password.guid,
-              value: credentials.password.value,
-            }
-          ]
+          institution_code: data[:bank_mx_id],
+          credentials: data[:credentials]
         }
       }
     )

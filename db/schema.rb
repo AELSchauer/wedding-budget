@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170907183016) do
+ActiveRecord::Schema.define(version: 20170907224713) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,17 +25,6 @@ ActiveRecord::Schema.define(version: 20170907183016) do
     t.datetime "updated_at",      null: false
   end
 
-  create_table "credentials", force: :cascade do |t|
-    t.string   "field_name"
-    t.string   "mx_id"
-    t.string   "field_label"
-    t.string   "field_type"
-    t.integer  "bank_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.index ["bank_id"], name: "index_credentials_on_bank_id", using: :btree
-  end
-
   create_table "logs", force: :cascade do |t|
     t.string   "endpoint"
     t.string   "method"
@@ -46,15 +35,27 @@ ActiveRecord::Schema.define(version: 20170907183016) do
     t.datetime "updated_at",    null: false
   end
 
+  create_table "members", force: :cascade do |t|
+    t.string   "mx_id"
+    t.integer  "status"
+    t.integer  "bank_id"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["bank_id"], name: "index_members_on_bank_id", using: :btree
+    t.index ["user_id"], name: "index_members_on_user_id", using: :btree
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "first_name"
     t.string   "last_name"
     t.string   "email"
     t.string   "password_digest"
-    t.string   "mx_guid"
+    t.string   "mx_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
   end
 
-  add_foreign_key "credentials", "banks"
+  add_foreign_key "members", "banks"
+  add_foreign_key "members", "users"
 end

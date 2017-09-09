@@ -4,22 +4,24 @@ class Banks::LoginController < ApplicationController
   end
 
   def create
-    current_user.member_connect(login_params)
+    member = current_user.member_connect(
+      bank_mx_id: params[:bank_mx_id],
+      credentials: login_params
+    )
+    member.check_status
+    if member.challenged?
+      redirect_to bank_authenticate_index_path(bank_mx_id: params[:bank_mx_id])
+    else
+      flash[:danger] = member.status
+      redirect_to root_path
+    end
   end
 
   private
 
   def login_params
-    Hashie::Mash.new(
-      bank_mx_id: params[:bank_mx_id],
-      username: {
-        guid: params["login"]["username_guid"],
-        value: params["login"]["username"]
-      },
-      password: {
-        guid: params["login"]["password_guid"],
-        value: params["login"]["password"]
-      }
-    )
+    params[:login].values.map do |vals|
+      ActionController::Parameters.new(vals).permit(:guid, :value).to_unsafe_h
+    end
   end
 end

@@ -16,5 +16,9 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :dashboard do
+    resources :banks, only: [:index, :update, :destroy]
+  end
+
   resources :logs, only: [:index, :show]
 end

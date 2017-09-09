@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   has_secure_password
+  has_many :members
 
   validates :first_name, presence: true
   validates :last_name, presence: true
@@ -16,11 +17,28 @@ class User < ApplicationRecord
   end
 
   def add_to_mx
-    mx.register
+    response = mx.register
+    update_attributes(mx_id: response.user.guid)
+    save(:validate => false)
   end
 
-  def member_connect(credentials)
-    status = mx.login_to_bank(credentials)
-    binding.pry
+  def member_connect(data)
+    member_login(data)
+    @member.check_status
+  end
+
+  def member_login(data)
+    response = mx.login_to_bank(data)
+    @member = members.find_or_create_by(
+      bank: Bank.find_by_mx_id(data[:bank_mx_id])
+    )
+    @member.update_attributes(
+      mx_id: response.member.guid,
+      status: response.member.status.downcase
+    )
+  end
+
+  def find_member_by_bank_mx_id(bank_mx_id)
+    members.find_by(bank: Bank.find_by_mx_id(bank_mx_id))
   end
 end
