@@ -37,10 +37,14 @@ class Member < ApplicationRecord
   end
 
   def status_pending?
-    authenticated? || challenged? || initiated? || processed? || received? || requested? || transferred?
+    status.in?(
+      %w[authenticated challenged initiated processed received requested transferred]
+    )
   end
 
   def status_failed?
-    denied? || halted? || prevented?
+    status.in?(
+      %w[denied halted prevented]
+    )
   end
 end

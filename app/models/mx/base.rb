@@ -15,16 +15,8 @@ class Mx::Base
       headers: app_credentials, query: opts[:params]
     )
 
-    if response.nil?
-      data = {status: response.code, success: response.success?}
-    elsif response["error"].nil?
-      data = JSON.parse(response)
-    else
-      data = response
-    end
-
+    data = response_handler
     log_query(opts.merge(response: data, code: response.code))
-
     Hashie::Mash.new(data)
   end
 
@@ -36,5 +28,15 @@ class Mx::Base
       :response      => opts[:response].to_json,
       :response_code => opts[:code]
     )
+  end
+
+  def response_handler
+    if response.nil?
+      { status: response.code, success: response.success? }
+    elsif response["error"].nil?
+      JSON.parse(response)
+    else
+      response
+    end
   end
 end
