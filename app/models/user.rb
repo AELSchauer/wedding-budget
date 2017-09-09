@@ -38,15 +38,7 @@ class User < ApplicationRecord
     )
   end
 
-  def mfa_challenge_for_bank(bank_mx_id)
-    member = members.find_by(bank: Bank.find_by_mx_id(bank_mx_id))
-    member.mfa_challenge.map do |data|
-      ::Credential.new(
-        field_name: data.field_name,
-        field_label: data.label,
-        field_type: data.type.downcase,
-        mx_id: data.guid
-      )
-    end
+  def find_member_by_bank_mx_id(bank_mx_id)
+    members.find_by(bank: Bank.find_by_mx_id(bank_mx_id))
   end
 end

@@ -6,9 +6,21 @@ class Mx::Member < Mx::Base
   end
 
   def check_status
-    response = query(
+    query(
       :endpoint => "/users/#{member.user.mx_id}/members/#{member.mx_id}/status",
       :method   => :GET
+    )
+  end
+
+  def submit_mfa_login(credentials)
+    query(
+      :endpoint => "/users/#{member.user.mx_id}/members/#{member.mx_id}/resume",
+      :method   => :PUT,
+      :params   => {
+        :member => {
+          challenges: credentials
+        }
+      }
     )
   end
 end

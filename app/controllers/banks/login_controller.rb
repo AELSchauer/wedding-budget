@@ -12,7 +12,8 @@ class Banks::LoginController < ApplicationController
     if member.challenged?
       redirect_to bank_authenticate_index_path(bank_mx_id: params[:bank_mx_id])
     else
-      binding.pry
+      flash[:danger] = member.status
+      redirect_to root_path
     end
   end
 

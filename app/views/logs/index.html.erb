@@ -15,7 +15,7 @@
     <tr>
       <td><%= log.created_at %></td>
       <td><%= log.response_code %></td>
-      <td><%= log.rest_method %></td>
+      <td><%= log.method %></td>
       <td><%= log.endpoint %></td>
       <td><%= link_to 'Details', log_path(log.id), class: "btn btn-info btn-sm" %></td>
     </tr>

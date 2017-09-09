@@ -18,7 +18,14 @@ class Member < ApplicationRecord
 
   def mfa_challenge
     response = mx.check_status
-    response.member.challenges
+    response.member.challenges.map do |data|
+      ::Credential.new(
+        field_name: data.field_name,
+        field_label: data.label,
+        field_type: data.type.downcase,
+        mx_id: data.guid
+      )
+    end
   end
 
   def connection_failed?
