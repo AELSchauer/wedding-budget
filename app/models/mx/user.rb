@@ -33,23 +33,14 @@ class Mx::User < Mx::Base
     end
   end
 
-  def login_to_bank(credentials)
+  def login_to_bank(data)
     response = query(
       :endpoint => "/users/#{user.mx_id}/members",
       :method   => :POST,
       :params   => {
         :member => {
-          institution_code: credentials.bank_mx_id,
-          credentials: [
-            {
-              guid: credentials.username.guid,
-              value: credentials.username.value,
-            },
-            {
-              guid: credentials.password.guid,
-              value: credentials.password.value,
-            }
-          ]
+          institution_code: data[:bank_mx_id],
+          credentials: data[:credentials]
         }
       }
     )

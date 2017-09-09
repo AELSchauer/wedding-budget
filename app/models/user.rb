@@ -18,26 +18,23 @@ class User < ApplicationRecord
 
   def add_to_mx
     response = mx.register
-    mx_id = response.user.guid
+    update_attributes(mx_id: response.user.guid)
     save(:validate => false)
   end
 
-  def member_connect(credentials)
-    status = member_login(credentials)
-    binding.pry
+  def member_connect(data)
+    member_login(data)
+    @member.check_status
   end
 
-  def member_login(credentials)
-    response = mx.login_to_bank(credentials)
-    membership = members.find_or_create_by(
-      mx_id: response.member.guid,
-      bank: Bank.find_by_mx_id(response.member.institution_code)
+  def member_login(data)
+    response = mx.login_to_bank(data)
+    @member = members.find_or_create_by(
+      bank: Bank.find_by_mx_id(data[:bank_mx_id])
     )
-    membership.update_attributes(status: response.member.status.downcase)
-    membership
-  end
-
-  def check_authentication
-    
+    @member.update_attributes(
+      mx_id: response.member.guid,
+      status: response.member.status.downcase
+    )
   end
 end
