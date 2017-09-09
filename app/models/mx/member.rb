@@ -23,4 +23,11 @@ class Mx::Member < Mx::Base
       }
     )
   end
+
+  def delete
+    query(
+      :endpoint => "/users/#{member.user.mx_id}/members/#{member.mx_id}",
+      :method   => :DELETE
+    )
+  end
 end

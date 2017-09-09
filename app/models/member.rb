@@ -4,7 +4,11 @@ class Member < ApplicationRecord
   belongs_to :bank
   belongs_to :user
 
-  enum status: [:initiated, :requested, :completed, :authenticated, :challenged, :halted, :denied]
+  enum status: [:authenticated, :challenged, :completed, :denied,
+                :halted, :initiated, :prevented, :processed,
+                :received, :requested, :transferred]
+
+  after_destroy :delete_mx_record
 
   def mx
     @mx = Mx::Member.new(self)
@@ -28,7 +32,15 @@ class Member < ApplicationRecord
     end
   end
 
-  def connection_failed?
-    halted? || denied?
+  def delete_mx_record
+    mx.delete
+  end
+
+  def status_pending?
+    authenticated? || challenged? || initiated? || processed? || received? || requested? || transferred?
+  end
+
+  def status_failed?
+    denied? || halted? || prevented?
   end
 end
