@@ -7,7 +7,7 @@ class Mx::User < Mx::Base
 
   def register
     user_type = { type: Rails.env }.to_s
-    query(
+    response = query(
       :endpoint => "/users",
       :method   => :POST,
       :params   => {

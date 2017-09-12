@@ -30,7 +30,7 @@ class Mx::Base
     )
   end
 
-  def response_handler
+  def response_handler(response)
     if response.nil?
       { status: response.code, success: response.success? }
     elsif response["error"].nil?
