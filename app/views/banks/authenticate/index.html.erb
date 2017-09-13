@@ -5,28 +5,17 @@
   <table>
     <% @credentials.each_with_index do |credential, i| %>
       <%= f.fields_for "#{i}" do |credential_form| %>
-        <%= credential_form.hidden_field :guid, value: credential.mx_id %>
-        <% if credential.html_field_type == "image_data" %>
-          <%= image_tag(credential.image_data) %>
+        <% if credential.html_field_type == "text" %>
+          <%= render partial: "text_mfa", locals: { credential_form: credential_form, credential: credential } %>
+        <% elsif credential.html_field_type == "password" %>
+          <%= render partial: "password_mfa", locals: { credential_form: credential_form, credential: credential } %>
+        <% elsif credential.html_field_type == "options" %>
+          <%= render partial: "options_mfa", locals: { credential_form: credential_form, credential: credential } %>
+        <% elsif credential.html_field_type == "image_data" %>
+          <%= render partial: "image_mfa", locals: { credential_form: credential_form, credential: credential } %>
+        <% else %>
+          <td>Error: Please contact customer support.</td>
         <% end %>
-        <tr>
-          <td><%= credential_form.label credential.field_label %></td>
-          <% if credential.html_field_type == "text" %>
-            <td><%= credential_form.text_field :value %></td>
-          <% elsif credential.html_field_type == "password" %>
-            <td><%= credential_form.password_field :value %></td>
-          <% elsif credential.html_field_type == "options" %>
-            <%= credential_form.select :value do %>
-              <% credential.options.each do |c| %>
-                <%= content_tag(:option, c.label, value: c.value) %>
-              <% end %>
-            <% end %>
-          <% elsif credential.html_field_type == "image_data" %>
-            <td><%= credential_form.text_field :value %></td>
-          <% else %>
-            <td>Crap -- <%= credential.html_field_type %></td>
-          <% end %>
-        </tr>
       <% end %>
     <% end %>
   </table>

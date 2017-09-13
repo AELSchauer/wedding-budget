@@ -1,0 +1,6 @@
+<%= credential_form.hidden_field :guid, value: credential.mx_id %>
+<%= image_tag(credential.image_data) %>
+<tr>
+  <td><%= credential_form.label credential.field_label %></td>
+  <td><%= credential_form.text_field :value %></td>
+</tr>
