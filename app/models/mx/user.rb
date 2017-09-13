@@ -5,6 +5,13 @@ class Mx::User < Mx::Base
     @user = user
   end
 
+  def read
+    query(
+      :endpoint => "/users/#{user.mx_id}",
+      :method   => :GET
+    )
+  end
+
   def register
     user_type = { type: Rails.env }.to_s
     response = query(

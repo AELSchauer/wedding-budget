@@ -5,14 +5,15 @@
   <table>
     <% @credentials.each_with_index do |credential, i| %>
       <%= f.fields_for "#{i}" do |credential_form| %>
+        <%= credential_form.hidden_field :guid, value: credential.mx_id %>
         <% if credential.html_field_type == "text" %>
-          <%= render partial: "text_mfa", locals: { credential_form: credential_form, credential: credential } %>
+          <%= render partial: "banks/shared/text_mfa", locals: { credential_form: credential_form, credential: credential } %>
         <% elsif credential.html_field_type == "password" %>
-          <%= render partial: "password_mfa", locals: { credential_form: credential_form, credential: credential } %>
+          <%= render partial: "banks/shared/password_mfa", locals: { credential_form: credential_form, credential: credential } %>
         <% elsif credential.html_field_type == "options" %>
-          <%= render partial: "options_mfa", locals: { credential_form: credential_form, credential: credential } %>
+          <%= render partial: "banks/shared/options_mfa", locals: { credential_form: credential_form, credential: credential } %>
         <% elsif credential.html_field_type == "image_data" %>
-          <%= render partial: "image_mfa", locals: { credential_form: credential_form, credential: credential } %>
+          <%= render partial: "banks/shared/image_mfa", locals: { credential_form: credential_form, credential: credential } %>
         <% else %>
           <td>Error: Please contact customer support.</td>
         <% end %>

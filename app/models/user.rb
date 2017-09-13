@@ -28,10 +28,10 @@ class User < ApplicationRecord
   end
 
   def member_login(data)
-    response = mx.login_to_bank(data)
     @member = members.find_or_create_by(
       bank: Bank.find_by_mx_id(data[:bank_mx_id])
     )
+    response = mx.login_to_bank(data)
     @member.update_attributes(
       mx_id: response.member.guid,
       status: response.member.status.downcase

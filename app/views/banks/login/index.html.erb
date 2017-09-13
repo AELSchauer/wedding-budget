@@ -6,14 +6,13 @@
     <% @credentials.each_with_index do |credential, i| %>
       <%= f.fields_for "#{i}" do |credential_form| %>
         <%= credential_form.hidden_field :guid, value: credential.mx_id %>
-        <tr>
-          <td><%= credential_form.label credential.field_label %></td>
-          <td><% if credential.html_field_type == "text" %>
-            <%= credential_form.text_field :value %>
-          <% elsif credential.html_field_type == "password" %>
-            <%= credential_form.password_field :value %>
-          <% end %></td>
-        </tr>
+        <% if credential.html_field_type == "text" %>
+          <%= render partial: "banks/shared/text_mfa", locals: { credential_form: credential_form, credential: credential } %>
+        <% elsif credential.html_field_type == "password" %>
+          <%= render partial: "banks/shared/password_mfa", locals: { credential_form: credential_form, credential: credential } %>
+        <% else %>
+          <td>Error: Please contact customer support.</td>
+        <% end %>
       <% end %>
     <% end %>
   </table>
