@@ -15,7 +15,7 @@ class Mx::Base
       headers: app_credentials, query: opts[:params]
     )
 
-    data = response_handler
+    data = response_handler(response)
     log_query(opts.merge(response: data, code: response.code))
     Hashie::Mash.new(data)
   end

@@ -2,6 +2,7 @@ class Banks::AuthenticateController < ApplicationController
   def index
     member = current_user.find_member_by_bank_mx_id(params[:bank_mx_id])
     @credentials = member.mfa_challenge
+    binding.pry
   end
 
   def create
@@ -11,12 +12,8 @@ class Banks::AuthenticateController < ApplicationController
     if member.completed?
       flash[:success] = member.status
       redirect_to dashboard_banks_path
-    elsif member.status_pending?
-      flash[:warning] = member.status
-      redirect_to dashboard_banks_path
     else
-      flash[:danger] = member.status
-      redirect_to root_path
+      redirect_to dashboard_banks_path
     end
   end
 

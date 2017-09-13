@@ -24,10 +24,13 @@ class Member < ApplicationRecord
     response = mx.check_status
     response.member.challenges.map do |data|
       ::Credential.new(
+        member_id: self.mx_id,
         field_name: data.field_name,
         field_label: data.label,
         field_type: data.type.downcase,
-        mx_id: data.guid
+        mx_id: data.guid,
+        options: data.options,
+        image_data: data.image_data
       )
     end
   end
@@ -38,7 +41,7 @@ class Member < ApplicationRecord
 
   def status_pending?
     status.in?(
-      %w[authenticated challenged initiated processed received requested transferred]
+      %w[authenticated initiated processed received requested transferred]
     )
   end
 

@@ -11,7 +11,14 @@
 
 <br>
 
-<table>
+<table class="table">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Bank</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
   <% @banks.each do |bank| %>
     <tr>
       <td><img src=<%= bank.small_logo_url %>></td>
