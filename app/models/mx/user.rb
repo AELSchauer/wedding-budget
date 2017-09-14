@@ -19,7 +19,7 @@ class Mx::User < Mx::Base
       :method   => :POST,
       :params   => {
         :user   => {
-          is_disabled: false,
+          is_disabled: true,
           metadata: user_type
         }
       }
@@ -38,10 +38,22 @@ class Mx::User < Mx::Base
     end
   end
 
+  def account_verification
+    query(
+      :endpoint => "/users/#{user.mx_id}",
+      :method   => :PUT,
+      :params   => {
+        :user   => {
+          is_disabled: false
+        }
+      }
+    )
+  end
+
   def login_to_bank(data)
     query(
       :endpoint => "/users/#{user.mx_id}/members",
-      :method   => :POST,
+      :method   => :PUT,
       :params   => {
         :member => {
           institution_code: data[:bank_mx_id],

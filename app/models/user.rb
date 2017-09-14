@@ -1,5 +1,7 @@
 class User < ApplicationRecord
   has_secure_password
+  has_secure_token :activation_token
+
   has_many :members
 
   validates :first_name, presence: true
