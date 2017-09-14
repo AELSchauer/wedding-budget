@@ -38,7 +38,7 @@ class Mx::User < Mx::Base
     end
   end
 
-  def account_verification
+  def activate_account
     query(
       :endpoint => "/users/#{user.mx_id}",
       :method   => :PUT,

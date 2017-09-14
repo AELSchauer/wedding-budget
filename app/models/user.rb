@@ -45,7 +45,9 @@ class User < ApplicationRecord
   end
 
   def activate_account
-    self.activated = true
-    self.activated_at = Time.now
+    unless mx.activate_account.user.is_disabled
+      self.activated = true
+      self.activated_at = Time.now
+    end
   end
 end
