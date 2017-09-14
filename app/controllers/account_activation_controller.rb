@@ -7,9 +7,12 @@ class AccountActivationController < ApplicationController
     )
     if user
       user.activate_account
-      @activation = true
+      session[:user_id] = user.id
+      flash[:success] = "Account successfully activated"
+      redirect_to dashboard_path
     else
-      @activation = false
+      flash[:danger] = "Account activation failed"
+      redirect_to login_path
     end
   end
 end
