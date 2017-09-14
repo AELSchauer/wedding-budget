@@ -4,7 +4,7 @@ RSpec.describe Mx::Base, type: :model do
   describe("credentials") do
     it "retrieves the credentials from the yaml file" do
       mx = Mx::Base.new
-      credentials = mx.credentials
+      credentials = mx.app_credentials
 
       expect(credentials.keys).to eq([:"MX-API-Key", :"MX-Client-ID"])
       expect(credentials[:"MX-API-Key"]).not_to be_nil

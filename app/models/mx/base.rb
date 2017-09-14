@@ -17,6 +17,7 @@ class Mx::Base
 
     data = response_handler(response)
     log_query(opts.merge(response: data, code: response.code))
+    # binding.pry
     Hashie::Mash.new(data)
   end
 
@@ -33,10 +34,8 @@ class Mx::Base
   def response_handler(response)
     if response.nil?
       { status: response.code, success: response.success? }
-    elsif response["error"].nil?
-      JSON.parse(response)
     else
-      response
+      JSON.parse(response.parsed_response)
     end
   end
 end
