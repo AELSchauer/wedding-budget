@@ -20,5 +20,7 @@ Rails.application.routes.draw do
     resources :banks, only: [:index, :update, :destroy]
   end
 
+  resources :account_activation, only: [:show, :update]
+
   resources :logs, only: [:index, :show]
 end

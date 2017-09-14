@@ -43,4 +43,9 @@ class User < ApplicationRecord
   def find_member_by_bank_mx_id(bank_mx_id)
     members.find_by(bank: Bank.find_by_mx_id(bank_mx_id))
   end
+
+  def activate_account
+    self.activated = true
+    self.activated_at = Time.now
+  end
 end
